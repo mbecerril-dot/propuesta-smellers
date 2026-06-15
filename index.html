@@ -133,33 +133,25 @@ slides.push(`
   ${foot(2)}
 </div>`);
 
-/* 3 — DE PROVEEDOR A PARTNER */
+/* 3 — DÓNDE ESTAMOS CON SMELLERS */
+const hoy3 = [
+  ["package","Paquete de contenido","Te entregamos un volumen mensual de creativos para alimentar tu pauta."],
+  ["device-analytics","Servicio de manejo","Operamos y optimizamos tus campañas de pauta mes a mes."],
+  ["user-star","Account manager","Un account manager coordina la cuenta y da seguimiento al día a día."],
+];
 slides.push(`
 <div class="slide">
-  <div class="eyebrow">El cambio de modelo</div>
-  <h1 class="t">De proveedor de contenido a Growth Partner</h1>
-  <div style="display:grid; grid-template-columns:1fr 60px 1fr; gap:24px; align-items:center; margin-top:36px; flex:1;">
-    <div class="card" style="height:380px;">
-      <div style="font-size:12px; letter-spacing:.2em; color:var(--muted); text-transform:uppercase; font-weight:600;">Antes</div>
-      <h3 style="color:var(--mutedHi); margin-top:6px; font-size:25px;">Un proveedor de contenido</h3>
-      <ul class="clean muted" style="margin-top:14px;">
-        <li>Entrega fija de creativos al mes</li>
-        <li>Relación transaccional: tú pagas, nosotros entregamos</li>
-        <li>Incentivos desalineados con tu facturación</li>
-        <li>La estrategia y el CRO quedan de tu lado</li>
-      </ul>
-    </div>
-    <div class="arrowmid"><i class="ti ti-arrow-right"></i></div>
-    <div class="card hi" style="height:380px;">
-      <div style="font-size:12px; letter-spacing:.2em; color:var(--gold); text-transform:uppercase; font-weight:600;">Ahora</div>
-      <h3 style="margin-top:6px; font-size:25px;">Tus socios de crecimiento</h3>
-      <ul class="clean gold" style="margin-top:14px;">
-        <li>Un equipo construido alrededor de Smellers</li>
-        <li>Ganamos solo cuando Smellers crece (8% incremental)</li>
-        <li>Carlos Campos y Martín dentro de tu estrategia y CRO</li>
-        <li>Reinvertimos para escalar volumen y conversión</li>
-      </ul>
-    </div>
+  <div class="eyebrow">Dónde estamos con Smellers</div>
+  <h1 class="t">Smellers es una marca que queremos llevar más lejos</h1>
+  <p class="lead">Nos interesa mucho manejar Smellers. Hoy trabajamos juntos bajo el esquema estándar que la agencia aplica a cualquier cliente:</p>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:30px;">
+    ${hoy3.map(([i,h,d])=>`<div class="card" style="height:230px;"><div class="ico lg"><i class="ti ti-${i}"></i></div>
+      <h3 style="margin-top:18px;">${h}</h3><p class="desc">${d}</p></div>`).join("")}
+  </div>
+  <div class="card hi" style="display:flex; align-items:center; gap:22px; margin-top:24px;">
+    <div class="ico"><i class="ti ti-arrow-up-right"></i></div>
+    <div style="font-size:16.5px; line-height:1.5;"><b style="font-weight:600;">Es el modelo estándar de cliente de la agencia.</b>
+    <span style="color:var(--mutedHi);"> Para Smellers creemos que hay un siguiente nivel — y queremos construirlo contigo.</span></div>
   </div>
   ${foot(3)}
 </div>`);
