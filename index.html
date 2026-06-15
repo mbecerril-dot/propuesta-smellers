@@ -84,7 +84,8 @@
 
 <script>
 const F = '<div class="footer"><span>Ads Alchemy &times; Smellers</span><span>__N__</span></div>';
-function foot(n){ return F.replace('__N__', String(n).padStart(2,'0')); }
+let _pg = 1;
+function foot(){ _pg++; return F.replace('__N__', String(_pg).padStart(2,'0')); }
 
 const slides = [];
 
@@ -171,7 +172,34 @@ slides.push(`
   ${foot(4)}
 </div>`);
 
-/* 5 — ESQUEMA DE INVERSIÓN */
+/* 5 — EL PATRÓN QUE VEMOS */
+const patron = [
+  ["video","Más contenido","Cada vez que subimos el volumen creativo, la marca responde con tracción."],
+  ["users","Más equipo alrededor","Con un equipo dedicado operando la cuenta, el crecimiento se acelera."],
+  ["chart-line","Indicios claros","Smellers ya muestra las mismas señales que vimos en marcas que despegaron."],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">El patrón que vemos</div>
+  <h1 class="t">Smellers crece cuando se le invierte</h1>
+  <p class="lead">Vemos un patrón claro: cuando sumamos más contenido y más equipo alrededor de Smellers, la marca muestra indicios de crecimiento.</p>
+  <div style="display:grid; grid-template-columns:1fr 1.1fr; gap:24px; margin-top:28px; flex:1;">
+    <div class="card hi" style="display:flex; flex-direction:column; justify-content:center;">
+      <div class="ico lg"><i class="ti ti-trending-up"></i></div>
+      <div class="stat" style="font-size:58px; margin-top:18px;">$3&ndash;5M</div>
+      <h3 style="font-size:22px; margin-top:4px;">sostenidos al mes</h3>
+      <p class="desc" style="font-size:15px; margin-top:12px; color:var(--mutedHi);">Es la facturación a la que hemos escalado otras marcas con este mismo modelo. Smellers tiene el mismo perfil.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; justify-content:space-between;">
+      ${patron.map(([i,h,d])=>`<div class="card" style="display:flex; gap:18px; align-items:center; flex:1;">
+        <div class="ico"><i class="ti ti-${i}"></i></div>
+        <div><h3 style="font-size:19px;">${h}</h3><p class="desc">${d}</p></div></div>`).join("")}
+    </div>
+  </div>
+  ${foot()}
+</div>`);
+
+/* 6 — ESQUEMA DE INVERSIÓN */
 slides.push(`
 <div class="slide">
   <div class="eyebrow">El esquema de inversión</div>
