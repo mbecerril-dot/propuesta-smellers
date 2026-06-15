@@ -199,7 +199,28 @@ slides.push(`
   ${foot()}
 </div>`);
 
-/* 6 — ESQUEMA DE INVERSIÓN */
+/* 6 — EL EQUIPO DEL PROGRAMA */
+const equipoProg = [
+  ["chess","Estrategia directa","Tu account manager se queda contigo — y sumamos a Carlos Campos y Martín Becerril interviniendo en la estrategia."],
+  ["scissors","Editor dedicado","Un editor exclusivo de Smellers para producir volumen a mucha mayor velocidad."],
+  ["device-desktop","Landing por subnichos","Implementamos landing pages enfocadas a cada subnicho de la marca."],
+  ["adjustments","Equipo de CRO","Especialistas en CRO: landing y cambios a nivel de página que escalan la marca."],
+  ["users","Más creadoras de contenido","4 creadoras + un equipo de creadores aparte para máximo volumen y top of mind."],
+  ["robot","IA, agentes & soporte USA","Soluciones a la medida con nuestro desarrollador interno, más soporte con mentores en EE.UU."],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">La propuesta · El equipo del programa</div>
+  <h1 class="t">Un equipo totalmente diferente al que tienes hoy</h1>
+  <p class="lead">Esto es lo que creemos que se necesita para que Smellers jale a esos niveles:</p>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:24px; flex:1; align-content:center;">
+    ${equipoProg.map(([i,h,d])=>`<div class="card" style="display:flex; flex-direction:column;"><div class="ico"><i class="ti ti-${i}"></i></div>
+      <h3 style="margin-top:14px; font-size:18px;">${h}</h3><p class="desc" style="font-size:13.5px;">${d}</p></div>`).join("")}
+  </div>
+  ${foot()}
+</div>`);
+
+/* 7 — ESQUEMA DE INVERSIÓN */
 slides.push(`
 <div class="slide">
   <div class="eyebrow">El esquema de inversión</div>
@@ -282,9 +303,9 @@ slides.push(`
 
 /* 8 — ENTREGABLES */
 const del = [
-  ["video","15","Videos originales (UGC)","× 3 hooks cada uno","= 45 piezas"],
-  ["refresh","9","Videos de iteración","1 ronda al mes","= 9 piezas"],
-  ["photo","12","Anuncios estáticos","Diseño de alto impacto","= 12 piezas"],
+  ["video","16","Videos originales (UGC)","4 creadoras · × 3 variaciones","= 48 piezas"],
+  ["refresh","24","Videos de iteración","6 semanales · × 3 variaciones","= 72 piezas"],
+  ["photo","40","Anuncios estáticos","Diseño de alto impacto","= 40 piezas"],
 ];
 slides.push(`
 <div class="slide">
@@ -301,8 +322,8 @@ slides.push(`
     </div>`).join("")}
   </div>
   <div class="card hi" style="display:flex; align-items:center; justify-content:space-between; margin-top:22px; padding:20px 28px;">
-    <div><span class="stat" style="font-size:34px;">66</span> <span style="font-size:19px;">creativos al mes como mínimo</span></div>
-    <div style="font-size:16px; font-style:italic; color:var(--muted);">…y el objetivo es producir muchos más.</div>
+    <div><span class="stat" style="font-size:34px;">160</span> <span style="font-size:19px;">creativos al mes como mínimo</span></div>
+    <div style="font-size:16px; font-style:italic; color:var(--muted);">Demasiado contenido — y es solo el piso.</div>
   </div>
   ${foot(8)}
 </div>`);
@@ -389,7 +410,7 @@ slides.push(`
       <div class="ico lg"><i class="ti ti-device-desktop"></i></div>
       <div class="stat" style="font-size:64px; margin-top:18px;">&#8734;</div>
       <h3 style="font-size:24px;">Landing pages</h3>
-      <p class="desc" style="font-size:15px; margin-top:12px; color:var(--mutedHi);">Creamos páginas sin límite, guiadas por el performance real de cada campaña.</p>
+      <p class="desc" style="font-size:15px; margin-top:12px; color:var(--mutedHi);">Creamos páginas sin límite, enfocadas a cada subnicho de Smellers y guiadas por el performance real.</p>
     </div>
     <div style="display:flex; flex-direction:column; gap:16px; justify-content:space-between;">
       ${cro.map(([i,h,d])=>`<div class="card" style="display:flex; gap:18px; align-items:center; flex:1;">
