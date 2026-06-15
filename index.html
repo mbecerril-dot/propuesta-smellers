@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Growth Partner — Smellers × Ads Alchemy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+<style>
+  :root{
+    --bg:#0E1116; --panel:#171C24; --panel2:#1F2630; --border:#2C3540;
+    --gold:#D9A94E; --goldHi:#EAC174; --green:#47C98A;
+    --text:#F4F1EA; --muted:#9BA6B4; --mutedHi:#C4CCD6;
+    --serif:'Fraunces',Georgia,serif; --sans:'Inter',-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%; background:#07090c; font-family:var(--sans); color:var(--text); overflow:hidden;}
+  #viewport{position:fixed; inset:0; display:flex; align-items:center; justify-content:center;}
+  #stage{position:relative; width:1280px; height:720px; transform-origin:center center; flex:none;}
+  .slide{position:absolute; inset:0; background:var(--bg); overflow:hidden;
+    padding:64px 72px; opacity:0; visibility:hidden; transition:opacity .45s ease;
+    display:flex; flex-direction:column;}
+  .slide.active{opacity:1; visibility:visible;}
+
+  .eyebrow{font-size:14px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--gold);}
+  h1.t{font-family:var(--serif); font-weight:600; font-size:46px; line-height:1.08; color:var(--text); margin-top:14px;}
+  .lead{font-size:19px; color:var(--mutedHi); margin-top:14px; max-width:1000px; line-height:1.4;}
+  .lead.gold{color:var(--gold); font-style:italic;}
+
+  .card{background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:26px;}
+  .card.hi{background:var(--panel2); border-color:var(--gold);}
+  .card.top::before{content:""; display:block; height:4px; background:var(--gold); border-radius:4px; margin:-26px -26px 22px;}
+
+  .ico{width:60px; height:60px; border-radius:50%; background:var(--panel2); border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:28px; flex:none;}
+  .ico.lg{width:78px; height:78px; font-size:36px;}
+  .ico.sm{width:46px; height:46px; font-size:22px;}
+
+  .grid{display:grid; gap:20px;}
+  h3{font-family:var(--serif); font-weight:600; font-size:21px; color:var(--text);}
+  .desc{font-size:14.5px; color:var(--muted); line-height:1.45; margin-top:8px;}
+
+  ul.clean{list-style:none;}
+  ul.clean li{font-size:16px; line-height:1.4; margin:14px 0; padding-left:30px; position:relative; color:var(--mutedHi);}
+  ul.clean li::before{position:absolute; left:0; top:1px; font-family:"tabler-icons"; font-size:17px;}
+  ul.muted li{color:var(--muted);} ul.muted li::before{content:"\ea5f"; color:var(--muted);} /* minus */
+  ul.gold li::before{content:"\ea5e"; color:var(--gold);} /* check */
+
+  .footer{position:absolute; left:72px; right:72px; bottom:30px; display:flex; justify-content:space-between;
+    font-size:11px; letter-spacing:.18em; color:var(--muted); text-transform:uppercase;}
+
+  .stat{font-family:var(--serif); font-weight:700; color:var(--gold);}
+  .arrowmid{width:60px; height:60px; border-radius:50%; background:var(--panel2); border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:26px;}
+
+  .rings{position:absolute; pointer-events:none;}
+  .ring{position:absolute; border-radius:50%; border:1px solid var(--border);}
+  .ring.gold{border-color:var(--gold);}
+
+  /* nav */
+  #nav{position:fixed; bottom:18px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:16px; z-index:10;}
+  #nav button{background:rgba(31,38,48,.85); border:1px solid var(--border); color:var(--text);
+    width:38px; height:38px; border-radius:50%; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center;}
+  #nav button:hover{border-color:var(--gold); color:var(--gold);}
+  #counter{font-size:13px; color:var(--muted); min-width:52px; text-align:center; letter-spacing:.1em;}
+  #dots{position:fixed; top:50%; right:14px; transform:translateY(-50%); display:flex; flex-direction:column; gap:9px; z-index:10;}
+  #dots span{width:8px; height:8px; border-radius:50%; background:var(--border); cursor:pointer; transition:.2s;}
+  #dots span.on{background:var(--gold); transform:scale(1.3);}
+  #hint{position:fixed; bottom:20px; right:18px; font-size:11px; color:var(--muted); letter-spacing:.05em; z-index:10;}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage"></div></div>
+
+<div id="nav">
+  <button id="prev" aria-label="Anterior"><i class="ti ti-chevron-left"></i></button>
+  <span id="counter"></span>
+  <button id="next" aria-label="Siguiente"><i class="ti ti-chevron-right"></i></button>
+</div>
+<div id="dots"></div>
+<div id="hint">← → para navegar</div>
+
+<script>
+const F = '<div class="footer"><span>Ads Alchemy &times; Smellers</span><span>__N__</span></div>';
+function foot(n){ return F.replace('__N__', String(n).padStart(2,'0')); }
+
+const slides = [];
+
+/* 1 — PORTADA */
+slides.push(`
+<div class="slide" style="justify-content:center;">
+  <div class="rings" style="right:-120px; top:50%; transform:translateY(-50%);">
+    <div class="ring" style="width:680px;height:680px;left:-340px;top:-340px;"></div>
+    <div class="ring gold" style="width:520px;height:520px;left:-260px;top:-260px;"></div>
+    <div class="ring" style="width:360px;height:360px;left:-180px;top:-180px;"></div>
+    <div class="ico lg" style="position:absolute;left:-39px;top:-39px;"><i class="ti ti-rocket"></i></div>
+  </div>
+  <div style="position:relative; z-index:2;">
+    <div class="eyebrow" style="font-size:15px;">Propuesta &nbsp;·&nbsp; Growth Partner</div>
+    <h1 class="t" style="font-size:88px; margin-top:24px; line-height:1;">Smellers<br><span style="color:var(--gold);">&times; Ads Alchemy</span></h1>
+    <p class="lead" style="font-size:22px; margin-top:26px;">De proveedor de contenido a socios de crecimiento.</p>
+    <div style="width:140px; height:2px; background:var(--gold); margin:30px 0 14px;"></div>
+    <div style="font-size:13px; letter-spacing:.12em; color:var(--muted); text-transform:uppercase;">Confidencial &nbsp;·&nbsp; Junio 2026</div>
+  </div>
+</div>`);
+
+/* 2 — LO QUE HEMOS CONSTRUIDO HASTA HOY */
+const today = [
+  ["users","2","Creadores de contenido","Grabamos con ellos cada mes"],
+  ["video","18","Videos originales","6 videos nuevos con 3 variaciones"],
+  ["refresh","18","Videos de iteración","6 videos de iteración con 3 variaciones"],
+  ["photo","30","Estáticos /mes","Diseño de performance"],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">Dónde estamos hoy</div>
+  <h1 class="t">El sistema que llevó a Smellers hasta aquí</h1>
+  <p class="lead">Este es el volumen que producimos mes a mes — la base que hoy sostiene el crecimiento de Smellers.</p>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:30px; flex:1; align-content:center;">
+    ${today.map(([i,big,h,sub])=>`<div class="card" style="height:220px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="ico"><i class="ti ti-${i}"></i></div>
+        <div class="stat" style="font-size:60px; line-height:.9;">${big}</div></div>
+      <h3 style="margin-top:18px; font-size:19px;">${h}</h3>
+      <div style="font-size:13.5px; color:var(--muted); margin-top:6px;">${sub}</div>
+    </div>`).join("")}
+  </div>
+  <div class="card hi" style="display:flex; align-items:center; justify-content:space-between; margin-top:22px; padding:20px 28px;">
+    <div><span class="stat" style="font-size:34px;">66</span> <span style="font-size:19px;">creativos al mes en promedio</span></div>
+    <div style="font-size:16px; font-style:italic; color:var(--muted);">El sistema que llevó a Smellers hasta aquí — y ahora vamos por más.</div>
+  </div>
+  ${foot(2)}
+</div>`);
+
+/* 3 — DE PROVEEDOR A PARTNER */
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">El cambio de modelo</div>
+  <h1 class="t">De proveedor de contenido a Growth Partner</h1>
+  <div style="display:grid; grid-template-columns:1fr 60px 1fr; gap:24px; align-items:center; margin-top:36px; flex:1;">
+    <div class="card" style="height:380px;">
+      <div style="font-size:12px; letter-spacing:.2em; color:var(--muted); text-transform:uppercase; font-weight:600;">Antes</div>
+      <h3 style="color:var(--mutedHi); margin-top:6px; font-size:25px;">Un proveedor de contenido</h3>
+      <ul class="clean muted" style="margin-top:14px;">
+        <li>Entrega fija de creativos al mes</li>
+        <li>Relación transaccional: tú pagas, nosotros entregamos</li>
+        <li>Incentivos desalineados con tu facturación</li>
+        <li>La estrategia y el CRO quedan de tu lado</li>
+      </ul>
+    </div>
+    <div class="arrowmid"><i class="ti ti-arrow-right"></i></div>
+    <div class="card hi" style="height:380px;">
+      <div style="font-size:12px; letter-spacing:.2em; color:var(--gold); text-transform:uppercase; font-weight:600;">Ahora</div>
+      <h3 style="margin-top:6px; font-size:25px;">Tus socios de crecimiento</h3>
+      <ul class="clean gold" style="margin-top:14px;">
+        <li>Un equipo construido alrededor de Smellers</li>
+        <li>Ganamos solo cuando Smellers crece (8% incremental)</li>
+        <li>Carlos Campos y Martín dentro de tu estrategia y CRO</li>
+        <li>Reinvertimos para escalar volumen y conversión</li>
+      </ul>
+    </div>
+  </div>
+  ${foot(3)}
+</div>`);
+
+/* 4 — OBJETIVO */
+slides.push(`
+<div class="slide" style="align-items:center; justify-content:center; text-align:center; background:#10141a;">
+  <div class="ico lg"><i class="ti ti-target-arrow"></i></div>
+  <div class="eyebrow" style="margin-top:26px;">Nuestro objetivo</div>
+  <h1 class="t" style="font-size:54px; max-width:1020px; margin-top:20px; line-height:1.12;">
+    Llevar a Smellers a su <span style="color:var(--gold);">siguiente nivel de ventas</span> — y convertirla en nuestro mayor caso de crecimiento.</h1>
+  <p class="lead" style="font-style:italic; color:var(--muted); margin-top:24px;">Todo lo que sigue está diseñado para esa única meta.</p>
+  ${foot(4)}
+</div>`);
+
+/* 5 — ESQUEMA DE INVERSIÓN */
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">El esquema de inversión</div>
+  <h1 class="t">Un esquema atado a tu crecimiento real</h1>
+  <div style="display:grid; grid-template-columns:1fr 60px 1.35fr; gap:22px; align-items:center; margin-top:34px;">
+    <div class="card" style="height:230px;">
+      <div style="font-size:11px; letter-spacing:.18em; color:var(--muted); text-transform:uppercase; font-weight:600;">Modelo actual</div>
+      <div class="stat" style="font-size:46px; color:var(--mutedHi); margin-top:14px;">Base fija</div>
+      <div style="font-size:16px; color:var(--muted); margin-top:10px;">Fee mensual fijo + IVA</div>
+      <div style="font-size:13px; color:var(--muted); font-style:italic; margin-top:8px;">Igual vendas más o vendas menos</div>
+    </div>
+    <div class="arrowmid"><i class="ti ti-arrow-right"></i></div>
+    <div class="card hi" style="height:230px;">
+      <div style="font-size:11px; letter-spacing:.18em; color:var(--gold); text-transform:uppercase; font-weight:600;">Nuevo modelo · Growth Partner</div>
+      <div class="stat" style="font-size:50px; margin-top:14px; color:var(--text);">Base fija <span style="color:var(--gold);">+ 8%</span></div>
+      <div style="font-size:16px; color:var(--mutedHi); margin-top:10px;">Mantienes tu base hasta <b style="color:var(--text);">$1,000,000</b> en ventas/mes</div>
+      <div style="font-size:16px; color:var(--gold); font-weight:600; margin-top:6px;">+ 8% solo sobre las ventas que sumamos arriba de $1M</div>
+    </div>
+  </div>
+  <div class="card" style="display:flex; align-items:center; gap:20px; margin-top:24px;">
+    <div class="ico"><i class="ti ti-heart-handshake"></i></div>
+    <div style="font-size:16.5px; line-height:1.5;"><b style="font-weight:600;">No te cobramos por vender: te cobramos por crecer.</b>
+    <span style="color:var(--mutedHi);"> Si no te subimos arriba de $1M, no hay incremental. Nuestro upside vive en tu crecimiento.</span></div>
+  </div>
+  ${foot(5)}
+</div>`);
+
+/* 6 — CÓMO FUNCIONA EL 8% */
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">Cómo funciona el incremental</div>
+  <h1 class="t">Solo cobramos sobre lo que sumamos</h1>
+  <p class="lead">El 8% aplica únicamente a las ventas por encima de tu base de $1M. Un ejemplo:</p>
+  <div style="display:grid; grid-template-columns:1fr 60px 1fr 60px 1.1fr; gap:18px; align-items:center; margin-top:34px; flex:1;">
+    <div class="card" style="height:240px; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:11px; letter-spacing:.18em; color:var(--muted); text-transform:uppercase; font-weight:600;">Tu base</div>
+      <div class="stat" style="font-size:44px; color:var(--mutedHi); margin-top:10px;">$1,000,000</div>
+      <div style="font-size:14.5px; color:var(--muted); margin-top:8px;">Ventas/mes &middot; sin incremental</div>
+    </div>
+    <div class="arrowmid"><i class="ti ti-arrow-right"></i></div>
+    <div class="card hi" style="height:240px; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:11px; letter-spacing:.18em; color:var(--gold); text-transform:uppercase; font-weight:600;">Te subimos a</div>
+      <div class="stat" style="font-size:44px; color:var(--text); margin-top:10px;">$2,000,000</div>
+      <div style="font-size:14.5px; color:var(--mutedHi); margin-top:8px;">Sostenido al mes</div>
+    </div>
+    <div class="arrowmid"><i class="ti ti-equal"></i></div>
+    <div class="card" style="height:240px; display:flex; flex-direction:column; justify-content:center; border-color:var(--green);">
+      <div style="font-size:11px; letter-spacing:.18em; color:var(--green); text-transform:uppercase; font-weight:600;">8% del $1M extra</div>
+      <div class="stat" style="font-size:52px; color:var(--green); margin-top:10px;">$80,000</div>
+      <div style="font-size:14.5px; color:var(--mutedHi); margin-top:8px;">Sobre el millón que te agregamos</div>
+    </div>
+  </div>
+  <div class="card hi" style="display:flex; align-items:center; gap:20px; margin-top:22px; padding:20px 26px;">
+    <div class="ico"><i class="ti ti-shield-check"></i></div>
+    <div style="font-size:16px; line-height:1.5;"><b style="font-weight:600;">El millón base siempre queda intacto.</b>
+    <span style="color:var(--mutedHi);"> El 8% nunca toca lo que ya vendías — solo participa del crecimiento que construimos juntos.</span></div>
+  </div>
+  ${foot(6)}
+</div>`);
+
+/* 7 — A DÓNDE VA EL 8% / REINVERSIÓN */
+const rein = [
+  ["users","Equipo in-house","Construimos un equipo dedicado alrededor de tu negocio."],
+  ["video","Producción de contenido","Más volumen y mejor calidad de creativos cada mes."],
+  ["device-desktop","Landing &amp; CRO","Páginas y optimización continua para convertir mejor."],
+  ["chess","Estrategia de los fundadores","Carlos Campos y Martín, dentro de la cuenta."],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">Lo más importante</div>
+  <h1 class="t">Ese 8% no es un fee: es tu presupuesto de crecimiento</h1>
+  <p class="lead gold">Cada peso del incremental regresa a Smellers para construir un equipo in-house alrededor de tu negocio.</p>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:30px; flex:1;">
+    ${rein.map(([i,h,d])=>`<div class="card top"><div class="ico"><i class="ti ti-${i}"></i></div>
+      <h3 style="margin-top:18px;">${h}</h3><p class="desc">${d}</p></div>`).join("")}
+  </div>
+  <p style="font-size:16px; font-weight:500; color:var(--mutedHi); margin-top:24px;">Cuanto más vendes, más entra al sistema — y más capacidad construimos para seguir escalándote.</p>
+  ${foot(7)}
+</div>`);
+
+/* 8 — ENTREGABLES */
+const del = [
+  ["video","15","Videos originales (UGC)","× 3 hooks cada uno","= 45 piezas"],
+  ["refresh","9","Videos de iteración","× 3 hooks cada uno","= 27 piezas"],
+  ["photo","30","Anuncios estáticos","Diseño de alto impacto","= 30 piezas"],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">Entregables mínimos mensuales</div>
+  <h1 class="t">Más del doble de volumen — el piso, no el techo</h1>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:30px;">
+    ${del.map(([i,big,h,sub,eq])=>`<div class="card" style="height:250px; position:relative;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="ico"><i class="ti ti-${i}"></i></div>
+        <div class="stat" style="font-size:68px; line-height:.9;">${big}</div></div>
+      <h3 style="margin-top:16px;">${h}</h3>
+      <div style="font-size:14px; color:var(--muted); margin-top:6px;">${sub}</div>
+      <div style="border-top:1px solid var(--border); margin-top:14px; padding-top:12px; color:var(--green); font-weight:600; font-size:16px;">${eq}</div>
+    </div>`).join("")}
+  </div>
+  <div class="card hi" style="display:flex; align-items:center; justify-content:space-between; margin-top:22px; padding:20px 28px;">
+    <div><span class="stat" style="font-size:34px;">102+</span> <span style="font-size:19px;">creativos al mes como mínimo</span></div>
+    <div style="font-size:16px; font-style:italic; color:var(--muted);">…y el objetivo es producir muchos más.</div>
+  </div>
+  ${foot(8)}
+</div>`);
+
+/* 9 — SISTEMA ILIMITADO */
+const how = [
+  ["settings-cog","Procesos y pipeline propios","Research, guion, grabación y edición en flujo continuo."],
+  ["chart-line","Volumen atado a tu crecimiento","Más facturación libera más presupuesto de producción."],
+  ["stack-2","Biblioteca de ángulos ganadores","Iteramos sobre lo que funciona y escalamos los hits."],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">El verdadero entregable</div>
+  <h1 class="t">Una máquina de producción alrededor de Smellers</h1>
+  <div style="display:grid; grid-template-columns:1fr 1.15fr; gap:24px; margin-top:32px; flex:1;">
+    <div class="card hi" style="display:flex; flex-direction:column; justify-content:center;">
+      <div class="ico lg"><i class="ti ti-infinity"></i></div>
+      <h3 style="font-size:28px; margin-top:22px;">Creativos sin límite</h3>
+      <p class="desc" style="font-size:16px; margin-top:14px; color:var(--mutedHi);">Como Growth Partner, nuestro objetivo no es entregar un número fijo: es construir un equipo in-house que genere la mayor cantidad de creativos ganadores posible para Smellers.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; justify-content:space-between;">
+      ${how.map(([i,h,d])=>`<div class="card" style="display:flex; gap:18px; align-items:center; flex:1;">
+        <div class="ico"><i class="ti ti-${i}"></i></div>
+        <div><h3 style="font-size:19px;">${h}</h3><p class="desc">${d}</p></div></div>`).join("")}
+    </div>
+  </div>
+  ${foot(9)}
+</div>`);
+
+/* 10 — SALTO DE CALIDAD */
+const q = [
+  ["masks-theater","Mejores actores","Talento y creadores de mayor calibre, más creíbles y persuasivos."],
+  ["map-pin","Mejores locaciones","Sets y entornos que comunican estatus y profesionalismo."],
+  ["bulb","Ideas más elaboradas","Conceptos creativos trabajados, no solo variaciones rápidas."],
+  ["diamond","Producción premium","Mejor cámara, dirección y postproducción en cada pieza."],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">Un salto de estándar</div>
+  <h1 class="t">No replicamos lo de hoy: subimos el nivel</h1>
+  <p class="lead">Smellers merece una producción de marca líder. Elevamos cada palanca de calidad:</p>
+  <div class="grid" style="grid-template-columns:1fr 1fr; margin-top:26px; flex:1;">
+    ${q.map(([i,h,d])=>`<div class="card" style="display:flex; gap:20px; align-items:center; border-left:4px solid var(--gold); border-radius:0 14px 14px 0;">
+      <div class="ico"><i class="ti ti-${i}"></i></div>
+      <div><h3>${h}</h3><p class="desc" style="font-size:15px;">${d}</p></div></div>`).join("")}
+  </div>
+  ${foot(10)}
+</div>`);
+
+/* 11 — EQUIPO IN-HOUSE */
+const team = [
+  ["scissors","Editor dedicado","Edición ágil y consistente, enfocada 100% en Smellers."],
+  ["user-star","Account Manager personalizado","Un punto de contacto que cuida estrategia y ejecución."],
+  ["users-group","Creativos &amp; producción","Guionistas, creadores y diseñadores asignados a la cuenta."],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">El equipo detrás de Smellers</div>
+  <h1 class="t">Un equipo in-house construido alrededor de tu negocio</h1>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:32px;">
+    ${team.map(([i,h,d])=>`<div class="card" style="height:210px;"><div class="ico lg"><i class="ti ti-${i}"></i></div>
+      <h3 style="margin-top:18px;">${h}</h3><p class="desc">${d}</p></div>`).join("")}
+  </div>
+  <div class="card hi" style="display:flex; align-items:center; gap:22px; margin-top:24px;">
+    <div class="ico"><i class="ti ti-crown"></i></div>
+    <div><h3 style="font-size:21px;">Carlos Campos y Martín entran personalmente en la cuenta.</h3>
+    <p class="desc" style="font-size:15px; color:var(--mutedHi);">Los fundadores toman la estrategia, la landing page y el CRO de Smellers de forma directa.</p></div>
+  </div>
+  ${foot(11)}
+</div>`);
+
+/* 12 — LANDING + CRO */
+const cro = [
+  ["chart-arrows-vertical","Basadas en performance","Construimos y reemplazamos páginas según lo que convierte."],
+  ["adjustments","Testing continuo de CRO","Optimizamos copy, oferta y estructura para subir la conversión."],
+  ["rocket","Más ventas del mismo tráfico","Mejor conversión = más resultados sin subir el gasto en pauta."],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">Conversión, no solo tráfico</div>
+  <h1 class="t">Landing pages ilimitadas + optimización de CRO</h1>
+  <div style="display:grid; grid-template-columns:1fr 1.15fr; gap:24px; margin-top:32px; flex:1;">
+    <div class="card hi" style="display:flex; flex-direction:column; justify-content:center;">
+      <div class="ico lg"><i class="ti ti-device-desktop"></i></div>
+      <div class="stat" style="font-size:64px; margin-top:18px;">&#8734;</div>
+      <h3 style="font-size:24px;">Landing pages</h3>
+      <p class="desc" style="font-size:15px; margin-top:12px; color:var(--mutedHi);">Creamos páginas sin límite, guiadas por el performance real de cada campaña.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; justify-content:space-between;">
+      ${cro.map(([i,h,d])=>`<div class="card" style="display:flex; gap:18px; align-items:center; flex:1;">
+        <div class="ico"><i class="ti ti-${i}"></i></div>
+        <div><h3 style="font-size:19px;">${h}</h3><p class="desc">${d}</p></div></div>`).join("")}
+    </div>
+  </div>
+  ${foot(12)}
+</div>`);
+
+/* 13 — ACOMPAÑAMIENTO ESTRATÉGICO */
+const strat = [
+  ["robot","IA alrededor de tu negocio","Desarrollamos inteligencia artificial a la medida: detectamos qué procesos automatizar y mejorar con IA en cada área."],
+  ["trending-up","Eficiencia y márgenes","Operamos con IA para cuidar tus márgenes y mantenerte a la vanguardia — que no te quedes atrás en la curva."],
+  ["chess","Decisiones de negocio","Contratación, finanzas, recompra de inventario y lifetime value: te acompañamos más allá de la pauta."],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">Más allá de los anuncios</div>
+  <h1 class="t">Acompañamiento estratégico para todo el negocio</h1>
+  <p class="lead">No solo corremos tu pauta: nos involucramos en las decisiones que mueven la operación completa.</p>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:28px;">
+    ${strat.map(([i,h,d])=>`<div class="card top" style="height:236px;"><div class="ico"><i class="ti ti-${i}"></i></div>
+      <h3 style="margin-top:18px;">${h}</h3><p class="desc" style="font-size:14px;">${d}</p></div>`).join("")}
+  </div>
+  <div class="card hi" style="display:flex; align-items:center; gap:22px; margin-top:24px;">
+    <div class="ico"><i class="ti ti-arrow-up-right"></i></div>
+    <div style="font-size:16.5px; line-height:1.5;"><b style="font-weight:600;">Tu crecimiento es nuestro mayor interés.</b>
+    <span style="color:var(--mutedHi);"> Por eso participamos activamente en las decisiones estratégicas del negocio — porque todas, al final, repercuten en las ventas de la tienda.</span></div>
+  </div>
+  ${foot(13)}
+</div>`);
+
+/* 14 — CIERRE */
+slides.push(`
+<div class="slide" style="justify-content:center; background:#10141a;">
+  <div class="rings" style="left:50px; top:50%; transform:translateY(-50%);">
+    <div class="ring" style="width:560px;height:560px;left:-280px;top:-280px;"></div>
+    <div class="ring gold" style="width:400px;height:400px;left:-200px;top:-200px;"></div>
+    <div class="ring" style="width:250px;height:250px;left:-125px;top:-125px;"></div>
+    <div class="ico lg" style="position:absolute;left:-39px;top:-39px;"><i class="ti ti-seeding"></i></div>
+  </div>
+  <div style="position:relative; z-index:2; margin-left:360px;">
+    <div class="eyebrow">El siguiente paso</div>
+    <h1 class="t" style="font-size:52px; margin-top:18px; line-height:1.1;">Volvámonos<br>socios de crecimiento<br><span style="color:var(--gold);">de Smellers.</span></h1>
+    <p class="lead" style="margin-top:24px; max-width:660px;">Mismo volumen, mejor estructura: <span style="color:var(--gold); font-weight:600;">base fija + 8% sobre las ventas que sumamos arriba de $1M</span>, reinvertido en tu equipo in-house, producción y conversión.</p>
+    <div style="width:140px; height:2px; background:var(--gold); margin:28px 0 12px;"></div>
+    <div style="font-size:13px; letter-spacing:.12em; color:var(--muted); text-transform:uppercase;">Ads Alchemy &nbsp;·&nbsp; Growth Partner</div>
+  </div>
+</div>`);
+
+/* ---------- render + nav ---------- */
+const stage = document.getElementById('stage');
+stage.innerHTML = slides.join("");
+const els = [...stage.querySelectorAll('.slide')];
+const dots = document.getElementById('dots');
+els.forEach((_,i)=>{ const s=document.createElement('span'); s.onclick=()=>go(i); dots.appendChild(s); });
+const dotEls = [...dots.children];
+let cur = 0;
+function go(i){ cur = Math.max(0, Math.min(els.length-1, i));
+  els.forEach((e,k)=>e.classList.toggle('active', k===cur));
+  dotEls.forEach((e,k)=>e.classList.toggle('on', k===cur));
+  document.getElementById('counter').textContent = String(cur+1).padStart(2,'0')+' / '+String(els.length).padStart(2,'0');
+}
+document.getElementById('next').onclick=()=>go(cur+1);
+document.getElementById('prev').onclick=()=>go(cur-1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){go(cur+1); e.preventDefault();}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){go(cur-1); e.preventDefault();}
+  if(e.key==='Home')go(0); if(e.key==='End')go(els.length-1);
+});
+
+function fit(){ const s = Math.min(window.innerWidth/1280, window.innerHeight/720);
+  stage.style.transform = 'scale('+s+')'; }
+window.addEventListener('resize', fit); fit(); go(0);
+</script>
+</body>
+</html>
