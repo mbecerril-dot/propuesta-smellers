@@ -259,14 +259,13 @@ slides.push(`
 /* 8 — ENTREGABLES */
 const del = [
   ["video","15","Videos originales (UGC)","× 3 hooks cada uno","= 45 piezas"],
-  ["refresh","9","Videos de iteración","× 3 hooks cada uno","= 27 piezas"],
-  ["photo","30","Anuncios estáticos","Diseño de alto impacto","= 30 piezas"],
+  ["photo","12","Anuncios estáticos","Diseño de alto impacto","= 12 piezas"],
 ];
 slides.push(`
 <div class="slide">
   <div class="eyebrow">Entregables mínimos mensuales</div>
-  <h1 class="t">Más del doble de volumen — el piso, no el techo</h1>
-  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:30px;">
+  <h1 class="t">Más volumen y mejor calidad — el piso, no el techo</h1>
+  <div class="grid" style="grid-template-columns:repeat(2,1fr); margin-top:30px;">
     ${del.map(([i,big,h,sub,eq])=>`<div class="card" style="height:250px; position:relative;">
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
         <div class="ico"><i class="ti ti-${i}"></i></div>
@@ -277,7 +276,7 @@ slides.push(`
     </div>`).join("")}
   </div>
   <div class="card hi" style="display:flex; align-items:center; justify-content:space-between; margin-top:22px; padding:20px 28px;">
-    <div><span class="stat" style="font-size:34px;">102+</span> <span style="font-size:19px;">creativos al mes como mínimo</span></div>
+    <div><span class="stat" style="font-size:34px;">57</span> <span style="font-size:19px;">creativos al mes como mínimo</span></div>
     <div style="font-size:16px; font-style:italic; color:var(--muted);">…y el objetivo es producir muchos más.</div>
   </div>
   ${foot(8)}
