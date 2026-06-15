@@ -110,15 +110,14 @@ slides.push(`
 const today = [
   ["users","3","Creadores de contenido","Grabamos con ellos cada mes"],
   ["video","27","Videos originales","3 rondas de nuevo creador de contenido con 3 variaciones"],
-  ["refresh","18","Videos de iteración","6 videos de iteración con 3 variaciones"],
-  ["photo","30","Estáticos /mes","Diseño de performance"],
+  ["photo","12","Estáticos /mes","Diseño de performance"],
 ];
 slides.push(`
 <div class="slide">
   <div class="eyebrow">Dónde estamos hoy</div>
   <h1 class="t">El sistema que llevó a Smellers hasta aquí</h1>
   <p class="lead">Este es el volumen que producimos mes a mes — la base que hoy sostiene el crecimiento de Smellers.</p>
-  <div class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:30px; flex:1; align-content:center;">
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:30px; flex:1; align-content:center;">
     ${today.map(([i,big,h,sub])=>`<div class="card" style="height:220px;">
       <div style="display:flex; justify-content:space-between; align-items:flex-start;">
         <div class="ico"><i class="ti ti-${i}"></i></div>
@@ -128,7 +127,7 @@ slides.push(`
     </div>`).join("")}
   </div>
   <div class="card hi" style="display:flex; align-items:center; justify-content:space-between; margin-top:22px; padding:20px 28px;">
-    <div><span class="stat" style="font-size:34px;">75</span> <span style="font-size:19px;">creativos al mes en promedio</span></div>
+    <div><span class="stat" style="font-size:34px;">39</span> <span style="font-size:19px;">creativos al mes en promedio</span></div>
     <div style="font-size:16px; font-style:italic; color:var(--muted);">El sistema que llevó a Smellers hasta aquí — y ahora vamos por más.</div>
   </div>
   ${foot(2)}
