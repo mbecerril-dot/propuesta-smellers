@@ -69,6 +69,16 @@
   #dots span{width:8px; height:8px; border-radius:50%; background:var(--border); cursor:pointer; transition:.2s;}
   #dots span.on{background:var(--gold); transform:scale(1.3);}
   #hint{position:fixed; bottom:20px; right:18px; font-size:11px; color:var(--muted); letter-spacing:.05em; z-index:10;}
+
+  @media print {
+    @page { size:1280px 720px; margin:0; }
+    html,body{ overflow:visible; height:auto; background:#0E1116; }
+    #viewport{ position:static; display:block; }
+    #stage{ position:static; width:1280px; height:auto; transform:none !important; }
+    .slide{ position:relative !important; inset:auto !important; opacity:1 !important; visibility:visible !important;
+      width:1280px; height:720px; page-break-after:always; break-after:page; }
+    #nav,#dots,#hint{ display:none !important; }
+  }
 </style>
 </head>
 <body>
