@@ -107,7 +107,7 @@ slides.push(`
   </div>
 </div>`);
 
-/* 2 — LO QUE HEMOS CONSTRUIDO HASTA HOY */
+/* 2 — DÓNDE ESTAMOS HOY */
 const today = [
   ["users","3","Creadores de contenido","Grabamos con ellos cada mes"],
   ["video","27","Videos originales","3 rondas de nuevo creador de contenido con 3 variaciones"],
@@ -129,35 +129,12 @@ slides.push(`
   </div>
   <div class="card hi" style="display:flex; align-items:center; justify-content:space-between; margin-top:22px; padding:20px 28px;">
     <div><span class="stat" style="font-size:34px;">39</span> <span style="font-size:19px;">creativos al mes en promedio</span></div>
-    <div style="font-size:16px; font-style:italic; color:var(--muted);">El sistema que llevó a Smellers hasta aquí — y ahora vamos por más.</div>
+    <div style="font-size:16px; font-style:italic; color:var(--muted);">El sistema que llevó a Smellers hasta aquí — y ahora vamos por mucho más.</div>
   </div>
-  ${foot(2)}
+  ${foot()}
 </div>`);
 
-/* 3 — DÓNDE ESTAMOS CON SMELLERS */
-const hoy3 = [
-  ["package","Paquete de contenido","Te entregamos un volumen mensual de creativos para alimentar tu pauta."],
-  ["device-analytics","Servicio de manejo","Operamos y optimizamos tus campañas de pauta mes a mes."],
-  ["user-star","Account manager","Un account manager coordina la cuenta y da seguimiento al día a día."],
-];
-slides.push(`
-<div class="slide">
-  <div class="eyebrow">Dónde estamos con Smellers</div>
-  <h1 class="t">Smellers es una marca que queremos llevar más lejos</h1>
-  <p class="lead">Nos interesa mucho manejar Smellers. Hoy trabajamos juntos bajo el esquema estándar que la agencia aplica a cualquier cliente:</p>
-  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:30px;">
-    ${hoy3.map(([i,h,d])=>`<div class="card" style="height:230px;"><div class="ico lg"><i class="ti ti-${i}"></i></div>
-      <h3 style="margin-top:18px;">${h}</h3><p class="desc">${d}</p></div>`).join("")}
-  </div>
-  <div class="card hi" style="display:flex; align-items:center; gap:22px; margin-top:24px;">
-    <div class="ico"><i class="ti ti-arrow-up-right"></i></div>
-    <div style="font-size:16.5px; line-height:1.5;"><b style="font-weight:600;">Es el modelo estándar de cliente de la agencia.</b>
-    <span style="color:var(--mutedHi);"> Para Smellers creemos que hay un siguiente nivel — y queremos construirlo contigo.</span></div>
-  </div>
-  ${foot(3)}
-</div>`);
-
-/* 4 — PROPUESTA: GROWTH PARTNER */
+/* 3 — PROPUESTA: GROWTH PARTNER */
 slides.push(`
 <div class="slide" style="align-items:center; justify-content:center; text-align:center; background:#10141a;">
   <div class="ico lg"><i class="ti ti-heart-handshake"></i></div>
@@ -169,10 +146,58 @@ slides.push(`
     <div class="ico sm"><i class="ti ti-rocket"></i></div>
     <div style="font-size:20px; font-weight:600;">Te presentamos el <span style="color:var(--gold);">Programa Growth Partner</span></div>
   </div>
-  ${foot(4)}
+  ${foot()}
 </div>`);
 
-/* 5 — EL PATRÓN QUE VEMOS */
+/* 4 — EL EQUIPO DEL PROGRAMA */
+const equipoProg = [
+  ["chess","Estrategia directa","Tu account manager se queda contigo — y sumamos a Carlos Campos y Martín Becerril interviniendo en la estrategia."],
+  ["scissors","Editor dedicado","Un editor exclusivo de Smellers para producir volumen a mucha mayor velocidad."],
+  ["device-desktop","Landing por subnichos","Implementamos landing pages enfocadas a cada subnicho de la marca."],
+  ["adjustments","Equipo de CRO","Especialistas en CRO: landing y cambios a nivel de página que escalan la marca."],
+  ["users","Más creadoras de contenido","4 creadoras + un equipo de creadores aparte para máximo volumen y top of mind."],
+  ["robot","IA, agentes & soporte USA","Soluciones a la medida con nuestro desarrollador interno, más soporte con mentores en EE.UU."],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">La propuesta · El equipo del programa</div>
+  <h1 class="t">Un equipo totalmente diferente al que tienes hoy</h1>
+  <p class="lead">Esto es lo que creemos que se necesita para que Smellers jale a esos niveles:</p>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:24px; flex:1; align-content:center;">
+    ${equipoProg.map(([i,h,d])=>`<div class="card" style="display:flex; flex-direction:column;"><div class="ico"><i class="ti ti-${i}"></i></div>
+      <h3 style="margin-top:14px; font-size:18px;">${h}</h3><p class="desc" style="font-size:13.5px;">${d}</p></div>`).join("")}
+  </div>
+  ${foot()}
+</div>`);
+
+/* 5 — ENTREGABLES */
+const del = [
+  ["video","16","Videos originales (UGC)","4 creadoras · × 3 variaciones","= 48 piezas"],
+  ["refresh","24","Videos de iteración","6 semanales · × 3 variaciones","= 72 piezas"],
+  ["photo","40","Anuncios estáticos","Diseño de alto impacto","= 40 piezas"],
+];
+slides.push(`
+<div class="slide">
+  <div class="eyebrow">Entregables mínimos mensuales</div>
+  <h1 class="t">Más volumen y mejor calidad — el piso, no el techo</h1>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:30px;">
+    ${del.map(([i,big,h,sub,eq])=>`<div class="card" style="height:250px; position:relative;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div class="ico"><i class="ti ti-${i}"></i></div>
+        <div class="stat" style="font-size:68px; line-height:.9;">${big}</div></div>
+      <h3 style="margin-top:16px;">${h}</h3>
+      <div style="font-size:14px; color:var(--muted); margin-top:6px;">${sub}</div>
+      <div style="border-top:1px solid var(--border); margin-top:14px; padding-top:12px; color:var(--green); font-weight:600; font-size:16px;">${eq}</div>
+    </div>`).join("")}
+  </div>
+  <div class="card hi" style="display:flex; align-items:center; justify-content:space-between; margin-top:22px; padding:20px 28px;">
+    <div><span class="stat" style="font-size:34px;">160</span> <span style="font-size:19px;">creativos al mes como mínimo</span></div>
+    <div style="font-size:16px; font-style:italic; color:var(--muted);">De 39 a 160 creativos al mes — y es solo el piso.</div>
+  </div>
+  ${foot()}
+</div>`);
+
+/* 6 — EL PATRÓN QUE VEMOS */
 const patron = [
   ["video","Más contenido","Cada vez que subimos el volumen creativo, la marca responde con tracción."],
   ["users","Más equipo alrededor","Con un equipo dedicado operando la cuenta, el crecimiento se acelera."],
@@ -195,27 +220,6 @@ slides.push(`
         <div class="ico"><i class="ti ti-${i}"></i></div>
         <div><h3 style="font-size:19px;">${h}</h3><p class="desc">${d}</p></div></div>`).join("")}
     </div>
-  </div>
-  ${foot()}
-</div>`);
-
-/* 6 — EL EQUIPO DEL PROGRAMA */
-const equipoProg = [
-  ["chess","Estrategia directa","Tu account manager se queda contigo — y sumamos a Carlos Campos y Martín Becerril interviniendo en la estrategia."],
-  ["scissors","Editor dedicado","Un editor exclusivo de Smellers para producir volumen a mucha mayor velocidad."],
-  ["device-desktop","Landing por subnichos","Implementamos landing pages enfocadas a cada subnicho de la marca."],
-  ["adjustments","Equipo de CRO","Especialistas en CRO: landing y cambios a nivel de página que escalan la marca."],
-  ["users","Más creadoras de contenido","4 creadoras + un equipo de creadores aparte para máximo volumen y top of mind."],
-  ["robot","IA, agentes & soporte USA","Soluciones a la medida con nuestro desarrollador interno, más soporte con mentores en EE.UU."],
-];
-slides.push(`
-<div class="slide">
-  <div class="eyebrow">La propuesta · El equipo del programa</div>
-  <h1 class="t">Un equipo totalmente diferente al que tienes hoy</h1>
-  <p class="lead">Esto es lo que creemos que se necesita para que Smellers jale a esos niveles:</p>
-  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:24px; flex:1; align-content:center;">
-    ${equipoProg.map(([i,h,d])=>`<div class="card" style="display:flex; flex-direction:column;"><div class="ico"><i class="ti ti-${i}"></i></div>
-      <h3 style="margin-top:14px; font-size:18px;">${h}</h3><p class="desc" style="font-size:13.5px;">${d}</p></div>`).join("")}
   </div>
   ${foot()}
 </div>`);
@@ -245,10 +249,10 @@ slides.push(`
     <div style="font-size:16.5px; line-height:1.5;"><b style="font-weight:600;">No te cobramos por vender: te cobramos por crecer.</b>
     <span style="color:var(--mutedHi);"> Si no te subimos arriba de $1M, no hay incremental. Nuestro upside vive en tu crecimiento.</span></div>
   </div>
-  ${foot(5)}
+  ${foot()}
 </div>`);
 
-/* 6 — CÓMO FUNCIONA EL 8% */
+/* 8 — CÓMO FUNCIONA EL 8% */
 slides.push(`
 <div class="slide">
   <div class="eyebrow">Cómo funciona el incremental</div>
@@ -278,173 +282,10 @@ slides.push(`
     <div style="font-size:16px; line-height:1.5;"><b style="font-weight:600;">El millón base siempre queda intacto.</b>
     <span style="color:var(--mutedHi);"> El 8% nunca toca lo que ya vendías — solo participa del crecimiento que construimos juntos.</span></div>
   </div>
-  ${foot(6)}
+  ${foot()}
 </div>`);
 
-/* 7 — A DÓNDE VA EL 8% / REINVERSIÓN */
-const rein = [
-  ["users","Equipo in-house","Construimos un equipo dedicado alrededor de tu negocio."],
-  ["video","Producción de contenido","Más volumen y mejor calidad de creativos cada mes."],
-  ["device-desktop","Landing &amp; CRO","Páginas y optimización continua para convertir mejor."],
-  ["chess","Estrategia de los fundadores","Carlos Campos y Martín, dentro de la cuenta."],
-];
-slides.push(`
-<div class="slide">
-  <div class="eyebrow">Lo más importante</div>
-  <h1 class="t">Ese 8% no es un fee: es tu presupuesto de crecimiento</h1>
-  <p class="lead gold">Cada peso del incremental regresa a Smellers para construir un equipo in-house alrededor de tu negocio.</p>
-  <div class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:30px; flex:1;">
-    ${rein.map(([i,h,d])=>`<div class="card top"><div class="ico"><i class="ti ti-${i}"></i></div>
-      <h3 style="margin-top:18px;">${h}</h3><p class="desc">${d}</p></div>`).join("")}
-  </div>
-  <p style="font-size:16px; font-weight:500; color:var(--mutedHi); margin-top:24px;">Cuanto más vendes, más entra al sistema — y más capacidad construimos para seguir escalándote.</p>
-  ${foot(7)}
-</div>`);
-
-/* 8 — ENTREGABLES */
-const del = [
-  ["video","16","Videos originales (UGC)","4 creadoras · × 3 variaciones","= 48 piezas"],
-  ["refresh","24","Videos de iteración","6 semanales · × 3 variaciones","= 72 piezas"],
-  ["photo","40","Anuncios estáticos","Diseño de alto impacto","= 40 piezas"],
-];
-slides.push(`
-<div class="slide">
-  <div class="eyebrow">Entregables mínimos mensuales</div>
-  <h1 class="t">Más volumen y mejor calidad — el piso, no el techo</h1>
-  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:30px;">
-    ${del.map(([i,big,h,sub,eq])=>`<div class="card" style="height:250px; position:relative;">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-        <div class="ico"><i class="ti ti-${i}"></i></div>
-        <div class="stat" style="font-size:68px; line-height:.9;">${big}</div></div>
-      <h3 style="margin-top:16px;">${h}</h3>
-      <div style="font-size:14px; color:var(--muted); margin-top:6px;">${sub}</div>
-      <div style="border-top:1px solid var(--border); margin-top:14px; padding-top:12px; color:var(--green); font-weight:600; font-size:16px;">${eq}</div>
-    </div>`).join("")}
-  </div>
-  <div class="card hi" style="display:flex; align-items:center; justify-content:space-between; margin-top:22px; padding:20px 28px;">
-    <div><span class="stat" style="font-size:34px;">160</span> <span style="font-size:19px;">creativos al mes como mínimo</span></div>
-    <div style="font-size:16px; font-style:italic; color:var(--muted);">Demasiado contenido — y es solo el piso.</div>
-  </div>
-  ${foot(8)}
-</div>`);
-
-/* 9 — SISTEMA ILIMITADO */
-const how = [
-  ["settings-cog","Procesos y pipeline propios","Research, guion, grabación y edición en flujo continuo."],
-  ["chart-line","Volumen atado a tu crecimiento","Más facturación libera más presupuesto de producción."],
-  ["stack-2","Biblioteca de ángulos ganadores","Iteramos sobre lo que funciona y escalamos los hits."],
-];
-slides.push(`
-<div class="slide">
-  <div class="eyebrow">El verdadero entregable</div>
-  <h1 class="t">Una máquina de producción alrededor de Smellers</h1>
-  <div style="display:grid; grid-template-columns:1fr 1.15fr; gap:24px; margin-top:32px; flex:1;">
-    <div class="card hi" style="display:flex; flex-direction:column; justify-content:center;">
-      <div class="ico lg"><i class="ti ti-infinity"></i></div>
-      <h3 style="font-size:28px; margin-top:22px;">Creativos sin límite</h3>
-      <p class="desc" style="font-size:16px; margin-top:14px; color:var(--mutedHi);">Como Growth Partner, nuestro objetivo no es entregar un número fijo: es construir un equipo in-house que genere la mayor cantidad de creativos ganadores posible para Smellers.</p>
-    </div>
-    <div style="display:flex; flex-direction:column; gap:16px; justify-content:space-between;">
-      ${how.map(([i,h,d])=>`<div class="card" style="display:flex; gap:18px; align-items:center; flex:1;">
-        <div class="ico"><i class="ti ti-${i}"></i></div>
-        <div><h3 style="font-size:19px;">${h}</h3><p class="desc">${d}</p></div></div>`).join("")}
-    </div>
-  </div>
-  ${foot(9)}
-</div>`);
-
-/* 10 — SALTO DE CALIDAD */
-const q = [
-  ["masks-theater","Mejores actores","Talento y creadores de mayor calibre, más creíbles y persuasivos."],
-  ["map-pin","Mejores locaciones","Sets y entornos que comunican estatus y profesionalismo."],
-  ["bulb","Ideas más elaboradas","Conceptos creativos trabajados, no solo variaciones rápidas."],
-  ["diamond","Producción premium","Mejor cámara, dirección y postproducción en cada pieza."],
-];
-slides.push(`
-<div class="slide">
-  <div class="eyebrow">Un salto de estándar</div>
-  <h1 class="t">No replicamos lo de hoy: subimos el nivel</h1>
-  <p class="lead">Smellers merece una producción de marca líder. Elevamos cada palanca de calidad:</p>
-  <div class="grid" style="grid-template-columns:1fr 1fr; margin-top:26px; flex:1;">
-    ${q.map(([i,h,d])=>`<div class="card" style="display:flex; gap:20px; align-items:center; border-left:4px solid var(--gold); border-radius:0 14px 14px 0;">
-      <div class="ico"><i class="ti ti-${i}"></i></div>
-      <div><h3>${h}</h3><p class="desc" style="font-size:15px;">${d}</p></div></div>`).join("")}
-  </div>
-  ${foot(10)}
-</div>`);
-
-/* 11 — EQUIPO IN-HOUSE */
-const team = [
-  ["scissors","Editor dedicado","Edición ágil y consistente, enfocada 100% en Smellers."],
-  ["user-star","Account Manager personalizado","Un punto de contacto que cuida estrategia y ejecución."],
-  ["users-group","Creativos &amp; producción","Guionistas, creadores y diseñadores asignados a la cuenta."],
-];
-slides.push(`
-<div class="slide">
-  <div class="eyebrow">El equipo detrás de Smellers</div>
-  <h1 class="t">Un equipo in-house construido alrededor de tu negocio</h1>
-  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:32px;">
-    ${team.map(([i,h,d])=>`<div class="card" style="height:210px;"><div class="ico lg"><i class="ti ti-${i}"></i></div>
-      <h3 style="margin-top:18px;">${h}</h3><p class="desc">${d}</p></div>`).join("")}
-  </div>
-  <div class="card hi" style="display:flex; align-items:center; gap:22px; margin-top:24px;">
-    <div class="ico"><i class="ti ti-crown"></i></div>
-    <div><h3 style="font-size:21px;">Carlos Campos y Martín entran personalmente en la cuenta.</h3>
-    <p class="desc" style="font-size:15px; color:var(--mutedHi);">Los fundadores toman la estrategia, la landing page y el CRO de Smellers de forma directa.</p></div>
-  </div>
-  ${foot(11)}
-</div>`);
-
-/* 12 — LANDING + CRO */
-const cro = [
-  ["chart-arrows-vertical","Basadas en performance","Construimos y reemplazamos páginas según lo que convierte."],
-  ["adjustments","Testing continuo de CRO","Optimizamos copy, oferta y estructura para subir la conversión."],
-  ["rocket","Más ventas del mismo tráfico","Mejor conversión = más resultados sin subir el gasto en pauta."],
-];
-slides.push(`
-<div class="slide">
-  <div class="eyebrow">Conversión, no solo tráfico</div>
-  <h1 class="t">Landing pages ilimitadas + optimización de CRO</h1>
-  <div style="display:grid; grid-template-columns:1fr 1.15fr; gap:24px; margin-top:32px; flex:1;">
-    <div class="card hi" style="display:flex; flex-direction:column; justify-content:center;">
-      <div class="ico lg"><i class="ti ti-device-desktop"></i></div>
-      <div class="stat" style="font-size:64px; margin-top:18px;">&#8734;</div>
-      <h3 style="font-size:24px;">Landing pages</h3>
-      <p class="desc" style="font-size:15px; margin-top:12px; color:var(--mutedHi);">Creamos páginas sin límite, enfocadas a cada subnicho de Smellers y guiadas por el performance real.</p>
-    </div>
-    <div style="display:flex; flex-direction:column; gap:16px; justify-content:space-between;">
-      ${cro.map(([i,h,d])=>`<div class="card" style="display:flex; gap:18px; align-items:center; flex:1;">
-        <div class="ico"><i class="ti ti-${i}"></i></div>
-        <div><h3 style="font-size:19px;">${h}</h3><p class="desc">${d}</p></div></div>`).join("")}
-    </div>
-  </div>
-  ${foot(12)}
-</div>`);
-
-/* 13 — ACOMPAÑAMIENTO ESTRATÉGICO */
-const strat = [
-  ["robot","IA alrededor de tu negocio","Desarrollamos inteligencia artificial a la medida: detectamos qué procesos automatizar y mejorar con IA en cada área."],
-  ["trending-up","Eficiencia y márgenes","Operamos con IA para cuidar tus márgenes y mantenerte a la vanguardia — que no te quedes atrás en la curva."],
-  ["chess","Decisiones de negocio","Contratación, finanzas, recompra de inventario y lifetime value: te acompañamos más allá de la pauta."],
-];
-slides.push(`
-<div class="slide">
-  <div class="eyebrow">Más allá de los anuncios</div>
-  <h1 class="t">Acompañamiento estratégico para todo el negocio</h1>
-  <p class="lead">No solo corremos tu pauta: nos involucramos en las decisiones que mueven la operación completa.</p>
-  <div class="grid" style="grid-template-columns:repeat(3,1fr); margin-top:28px;">
-    ${strat.map(([i,h,d])=>`<div class="card top" style="height:236px;"><div class="ico"><i class="ti ti-${i}"></i></div>
-      <h3 style="margin-top:18px;">${h}</h3><p class="desc" style="font-size:14px;">${d}</p></div>`).join("")}
-  </div>
-  <div class="card hi" style="display:flex; align-items:center; gap:22px; margin-top:24px;">
-    <div class="ico"><i class="ti ti-arrow-up-right"></i></div>
-    <div style="font-size:16.5px; line-height:1.5;"><b style="font-weight:600;">Tu crecimiento es nuestro mayor interés.</b>
-    <span style="color:var(--mutedHi);"> Por eso participamos activamente en las decisiones estratégicas del negocio — porque todas, al final, repercuten en las ventas de la tienda.</span></div>
-  </div>
-  ${foot(13)}
-</div>`);
-
-/* 14 — CIERRE */
+/* 9 — CIERRE */
 slides.push(`
 <div class="slide" style="justify-content:center; background:#10141a;">
   <div class="rings" style="left:50px; top:50%; transform:translateY(-50%);">
@@ -456,7 +297,7 @@ slides.push(`
   <div style="position:relative; z-index:2; margin-left:360px;">
     <div class="eyebrow">El siguiente paso</div>
     <h1 class="t" style="font-size:52px; margin-top:18px; line-height:1.1;">Volvámonos<br>socios de crecimiento<br><span style="color:var(--gold);">de Smellers.</span></h1>
-    <p class="lead" style="margin-top:24px; max-width:660px;">Mismo volumen, mejor estructura: <span style="color:var(--gold); font-weight:600;">base fija + 8% sobre las ventas que sumamos arriba de $1M</span>, reinvertido en tu equipo in-house, producción y conversión.</p>
+    <p class="lead" style="margin-top:24px; max-width:660px;">Más equipo, más volumen y mejor conversión — financiados con <span style="color:var(--gold); font-weight:600;">base fija + 8% sobre las ventas que sumamos arriba de $1M</span>.</p>
     <div style="width:140px; height:2px; background:var(--gold); margin:28px 0 12px;"></div>
     <div style="font-size:13px; letter-spacing:.12em; color:var(--muted); text-transform:uppercase;">Ads Alchemy &nbsp;·&nbsp; Growth Partner</div>
   </div>
